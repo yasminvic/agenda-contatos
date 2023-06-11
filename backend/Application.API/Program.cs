@@ -1,4 +1,11 @@
+using Infra.Data.Repository.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+string ConnectionString = builder.Configuration.GetConnectionString("MySQLConnection");
+builder.Services.AddDbContext<MySQLContext>
+    (option => option.UseSqlServer(ConnectionString));
 
 // Add services to the container.
 
