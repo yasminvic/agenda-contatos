@@ -1,11 +1,25 @@
+using Application.Service.MySQLServices;
+using Domain.Interfaces.IRepositories;
+using Domain.Interfaces.IServices;
 using Infra.Data.Repository.Context;
+using Infra.Data.Repository.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Connection to DataBase
 string ConnectionString = builder.Configuration.GetConnectionString("MySQLConnection");
 builder.Services.AddDbContext<MySQLContext>
     (option => option.UseSqlServer(ConnectionString));
+
+//Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+
+//Services
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IContactService, ContactService>();
+
 
 // Add services to the container.
 
