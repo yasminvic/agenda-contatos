@@ -7,11 +7,25 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy(name: "CorsPolicy",
+        builder =>
+        {
+            builder.WithOrigins("*");
+            builder.AllowAnyHeader();
+            builder.AllowAnyOrigin();
+            builder.AllowAnyMethod();
+        }
+    );
+});
+
 //Connection to DataBase
 string ConnectionString = builder.Configuration.GetConnectionString("MySQLConnection");
 builder.Services.AddDbContext<MySQLContext>
     (option => option.UseSqlServer(ConnectionString));
 
+/* Dependency Injection */
 //Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
@@ -36,6 +50,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 

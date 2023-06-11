@@ -24,7 +24,7 @@ namespace Application.Service.MySQLServices
             return await _repository.Delete(entity);
         }
 
-        public IQueryable<ContactDTO> GetAll()
+        public List<ContactDTO> GetAll()
         {
             return _repository.GetAll().Select(contact => new ContactDTO
             {
@@ -33,7 +33,7 @@ namespace Application.Service.MySQLServices
                 name = contact.Name,
                 phoneNumber = contact.PhoneNumber,
                 email = contact.Email
-            });
+            }).ToList();
         }
 
         public async Task<ContactDTO> GetById(int id)

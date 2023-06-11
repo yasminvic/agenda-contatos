@@ -1,6 +1,7 @@
 ﻿using Domain.DTO;
 using Domain.Interfaces.IRepositories;
 using Domain.Interfaces.IServices;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +25,14 @@ namespace Application.Service.MySQLServices
             return await _repository.Delete(entity);
         }
 
-        public IQueryable<UserDTO> GetAll()
+        public List<UserDTO> GetAll()
         {
             return _repository.GetAll().Select(user => new UserDTO
             {
                 id = user.Id,
                 login= user.Login,
                 password = user.Password,
-            });
+            }).ToList();
         }
 
         public async Task<UserDTO> GetById(int id)
