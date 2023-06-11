@@ -10,7 +10,7 @@ namespace Domain.Interfaces.IRepositories
     {
         Task<int> Save(T entity);
         Task<int> Update(T entity);
-        Task<int> Delete(int id);
+        Task<int> Delete(T entity);
         IQueryable<T> GetAll();
         Task<T> GetById(int id);
 

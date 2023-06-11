@@ -17,9 +17,8 @@ namespace Infra.Data.Repository.Repositories
             _context = context;
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<int> Delete(T entity)
         {
-            var entity = await GetById(id);
             _context.Remove(entity);
             return await _context.SaveChangesAsync();
         }
