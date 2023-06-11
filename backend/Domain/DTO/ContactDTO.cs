@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,33 @@ namespace Domain.DTO
         public string email { get; set; }
 
         public virtual UserDTO? User { get; set; }
+
+
+        #region Methods
+
+        public Contact ToEntity()
+        {
+            return new Contact
+            {
+                Id = id,
+                UserId = userId,
+                Name = name,
+                PhoneNumber = phoneNumber,
+                Email = email
+            };
+        }
+
+        public ContactDTO ToDTO(Contact contact)
+        {
+            return new ContactDTO
+            {
+                id = contact.Id,
+                userId = contact.UserId,
+                name = contact.Name,
+                phoneNumber = contact.PhoneNumber,
+                email = contact.Email
+            };
+        }
+        #endregion
     }
 }
